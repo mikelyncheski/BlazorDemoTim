@@ -5,6 +5,12 @@
 	Something cool just happened.
 </Alert>
 
+
+<AlertOptions>
+	Alert with options.
+</AlertOptions>
+
+
 <Card Title="Cards are fun and easy">
 	<Content>
 		They contain content, which is usually text.  Other types of elements are supported too.
@@ -44,4 +50,17 @@
 
 @functions {
 
+
+	// Use the async version if you are calling an async method otherwise use version with Async
+	protected override async Task OnInitializedAsync()
+	{
+		Console.WriteLine("Fetching data ...");
+
+		await Task.Delay(2000);
+
+		Console.WriteLine("Fake Fetch done");
+
+		// Projects now use System.Text.Json by default for JSON
+		//Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(forecasts));
+	}
 }

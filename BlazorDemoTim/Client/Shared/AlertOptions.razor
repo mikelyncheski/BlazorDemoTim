@@ -1,0 +1,44 @@
+﻿@using System.Linq;
+
+
+<Alert Type="@_alertType" Title="@_title">
+	<div>
+		@ChildContent
+	</div>	
+	<div>
+		<input type="text" placeholder="Title" @bind="@_title" /> 
+		<select id="alertTypes" @bind="_alertType">
+
+			@foreach (var alerttype in AlertTypeList)
+			{
+				@*<option value="alerttype" selected="@(_alertType.ToString() == alerttype)">@alerttype</option>*@
+				<option value="@alerttype">@Enum.GetName(typeof(Alert.AlertType), alerttype)</option>
+			}
+		</select>
+	</div>
+</Alert>
+
+
+
+@code {
+	// <!–– Attributes will render conditionally if the value is a boolean. -->
+	// https://github.com/aspnet/AspNetCore/issues/10122#issuecomment-491355923
+
+	[Parameter]
+	public RenderFragment ChildContent { get; set; }
+
+	private Alert.AlertType _alertType = Alert.AlertType.Primary;
+	private string _title = string.Empty;
+
+	//private List<string> AlertTypeList => Enum.GetNames(typeof(Alert.AlertType)).ToList();
+	private List<Alert.AlertType> AlertTypeList => Enum.GetValues(typeof(Alert.AlertType)).Cast<Alert.AlertType>().ToList();
+
+	//<select class="form-control" size="10" @bind="selectedValue">
+
+	protected override void OnInitialized()
+	{
+		Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(AlertTypeList));
+	}
+
+
+}

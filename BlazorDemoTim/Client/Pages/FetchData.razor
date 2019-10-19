@@ -40,7 +40,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+		Console.WriteLine("Fetching data ...");
         forecasts = await Http.GetJsonAsync<WeatherForecast[]>("WeatherForecast");
+		// Projects now use System.Text.Json by default for JSON
+		Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(forecasts));
     }
-
 }

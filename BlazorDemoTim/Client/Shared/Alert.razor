@@ -39,4 +39,33 @@
 
 	string AlertClass => $"alert-{Type.ToString().ToLower()}";
 
+
+
+	protected override void OnInitialized()
+	{
+		Console.WriteLine("ALERT: OnInitialized");
+	}
+
+
+
+	protected override void OnParametersSet()
+	{
+		Dump();
+	}
+
+	
+
+	// This is also the place to put any JavaScript Interop calls when using server-side Blazor.
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		Console.WriteLine($"ALERT: OnAfterRender First:{firstRender}");
+	}
+
+
+
+	private void Dump()
+	{
+		Console.WriteLine($"ALERT: {Type} -- {Title} -- {ChildContent?.ToString() ?? "xxx"}");
+	}
 }

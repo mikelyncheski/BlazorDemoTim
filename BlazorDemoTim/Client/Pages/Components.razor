@@ -1,4 +1,22 @@
 ﻿@page "/components"
+@page "/morecomponents"
+@page "/evenmorecomponents"
+@inject NavigationManager NavigationManager
+@*https://stackoverflow.com/a/53448294/33787*@
+
+@*Dots are not accepted in Blazor urls (works from navlink but not on refresh).*@
+
+
+@*Not limited to a single route for a page.*@
+
+
+<Alert Type="Alert.AlertType.Secondary" Title="Matching Part of URL">
+	@(NavigationManager.Uri.Replace(NavigationManager.BaseUri, string.Empty))
+</Alert>
+
+<Alert Type="Alert.AlertType.Success" Title="ET Go Home">
+	<button class="btn btn-warning" @onclick="GoHome">Go Home</button>
+</Alert>
 
 
 <Alert Type="Alert.AlertType.Warning" Title="This is a title.">
@@ -62,5 +80,11 @@
 
 		// Projects now use System.Text.Json by default for JSON
 		//Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(forecasts));
+	}
+
+
+	private void GoHome()
+	{
+		NavigationManager.NavigateTo("/");
 	}
 }

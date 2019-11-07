@@ -1,0 +1,40 @@
+﻿@page "/bonus"
+@using BlazorDemoTim.Shared
+
+<div id="bonus">
+	<h3>Bonus Calculator</h3>
+
+	<div class="grid">
+		@foreach (var item in budgetItems)
+		{
+			<span>@item.Name</span>
+			<span>@item.Amount.ToString("c0")</span>
+			<input type="range" max="@(item.Amount + Remaining)" step="1000"
+					@bind="item.Amount" @bind:event="oninput" 
+				   style="width: @(100 * (item.Amount + Remaining) / totalBudget)%"/>
+		}
+	</div>
+</div>
+
+<div>
+	<span>Remaining:</span>
+	<span>@Remaining.ToString("c0")</span>
+</div>
+
+<button disabled="@(Remaining > 0)">Save</button>
+
+@code {
+
+	// From Steve Sanderson Talk https://www.youtube.com/watch?v=6BT2AF9PO5g&feature=youtu.be&t=886
+
+	decimal totalBudget = 1000000;
+	decimal Remaining => totalBudget - budgetItems.Sum(i => i.Amount);
+
+	List<BudgetItem> budgetItems = new List<BudgetItem>
+{
+		new BudgetItem("Developers"),
+		new BudgetItem("Managers"),
+		new BudgetItem("Sales")
+	};
+
+}

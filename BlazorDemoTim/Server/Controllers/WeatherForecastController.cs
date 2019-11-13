@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BlazorDemoTim.Server.Controllers
 {
-	[ApiController]
+	[ApiController]  /* Mark this controller as an API only controller */
 	[Route("[controller]")]
 	public class WeatherForecastController : ControllerBase
 	{

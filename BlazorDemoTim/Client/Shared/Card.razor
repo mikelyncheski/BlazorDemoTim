@@ -36,19 +36,19 @@
 @functions
 {
 	[Parameter]
-	public string Title { get; set; }
+	public string? Title { get; set; }
 
 	[Parameter]
-	public RenderFragment Content { get; set; }  /* Not ChildContent since using TitleTemplate */
+	public RenderFragment? Content { get; set; }  /* Not ChildContent since using TitleTemplate */
 
 	[Parameter]
-	public RenderFragment<string> TitleTemplate { get; set; }  // This says this template has a string parameter.
+	public RenderFragment<string>? TitleTemplate { get; set; }  // This says this template has a string parameter.
 
 
 	[Parameter]
-	public RenderFragment Header { get; set; }  /* Not ChildContent since using TitleTemplate */
+	public RenderFragment? Header { get; set; }  /* Not ChildContent since using TitleTemplate */
 	
 	[Parameter]
-	public RenderFragment Footer { get; set; }  /* Not ChildContent since using TitleTemplate */
+	public RenderFragment? Footer { get; set; }  /* Not ChildContent since using TitleTemplate */
 }
 

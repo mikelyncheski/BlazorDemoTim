@@ -32,12 +32,12 @@
 	public AlertType Type { get; set; } = AlertType.Primary;
 
 	[Parameter]
-	public RenderFragment ChildContent { get; set; }
+	public RenderFragment? ChildContent { get; set; }
 
 	[Parameter]
-	public string Title { get; set; } = "";
+	public string? Title { get; set; } = "";
 
-	string AlertClass => $"alert-{Type.ToString().ToLower()}";
+	string? AlertClass => $"alert-{Type.ToString().ToLower()}";
 
 
 

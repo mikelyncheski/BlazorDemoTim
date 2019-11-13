@@ -25,7 +25,7 @@
 	// https://github.com/aspnet/AspNetCore/issues/10122#issuecomment-491355923
 
 	[Parameter]
-	public RenderFragment ChildContent { get; set; }
+	public RenderFragment? ChildContent { get; set; }
 
 	private Alert.AlertType _alertType = Alert.AlertType.Primary;
 	private string _title = string.Empty;

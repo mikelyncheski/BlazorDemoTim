@@ -18,10 +18,10 @@ namespace BlazorDemoTim.Client.Pages
 {
 	public class FetchDataBase : ComponentBase
 	{
-		public WeatherForecast[] forecasts;
+		public WeatherForecast[]? forecasts;
 
 		[Inject]
-		public HttpClient Http { get; set; }
+		public HttpClient? Http { get; set; }
 
 		protected override async Task OnInitializedAsync()
 		{

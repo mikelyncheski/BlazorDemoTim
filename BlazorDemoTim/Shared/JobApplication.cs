@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
+#nullable disable
 
 namespace BlazorDemoTim.Shared
 {

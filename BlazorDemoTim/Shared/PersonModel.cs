@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BlazorDemoTim.Shared
 {
+#nullable disable
 	public class PersonModel
 	{
 		public string FirstName { get; set; }

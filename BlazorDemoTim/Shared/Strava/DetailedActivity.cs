@@ -100,12 +100,14 @@ namespace Strava.NET.Model {
     [JsonPropertyName("elev_low")]
     public float? ElevLow { get; set; }
 
+
     /// <summary>
     /// Gets or Sets Type
     /// </summary>
-    [DataMember(Name="type", EmitDefaultValue=false)]
+    [DataMember(Name = "type", EmitDefaultValue = false)]
     [JsonPropertyName("type")]
-    public ActivityType Type { get; set; }
+    //public ActivityType Type { get; set; }
+    public string Type { get; set; }
 
     /// <summary>
     /// The time at which the activity was started.

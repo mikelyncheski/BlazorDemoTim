@@ -1,0 +1,104 @@
+﻿@page "/stravatest"
+@using BlazorDemoTim.Shared
+@using Strava.NET.Model
+@inject HttpClient Http
+
+<h3>Strava</h3>
+
+@if (Activities == null)
+{
+	<p style="height:24px"><em>@Message</em></p>
+
+	@*@if (!IsButtonDisabled)
+	{*@ 
+		<button disabled="@(IsButtonDisabled ? "disabled" : null)" class="bth btn-info" @onclick="@LoadActivities">Load activities</button>
+	//}
+}
+else
+{
+<div class="row">
+	<ul>
+		@foreach (var activity in Activities)
+		{
+			<li>@activity.Name</li>
+		}
+	</ul>
+</div>
+}
+
+
+
+@code {
+
+	// Get in more fields
+	// Loop to get the all
+	// Move token to file.  User secrets?
+	// Error handling -- 401 etc -- also catch their error message
+	// Separate walk and ride
+	// Refresh the token
+	// Wire up the login process on the server.
+	// Option: English/Metric
+	// Failed to load resource: the server responded with a status of 401 ()
+	// Hot reload?
+	// Two way data binding
+
+	//public class DetailedActivity
+	//{
+	//	public long? Id { get; set; }
+	//	public string? Name { get; set; }
+	//	//public string? Name { get; set; }
+	//}
+
+
+	private List<DetailedActivity>? Activities { get; set; }
+	private string Message { get; set; } = string.Empty;
+	private bool IsButtonDisabled { get; set; } = false;
+
+
+	private async Task LoadActivities()
+	{
+		Console.WriteLine("CLICKED");
+		Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", "Bearer 1d412d9977dfcaa3888a886fd06342808e026671");
+
+		var list = new List<DetailedActivity>();
+
+		Message = "Loading ...";
+		IsButtonDisabled = true;
+
+		this.StateHasChanged();
+
+		for (int page = 1; ; page++)
+		{
+			// https://docs.microsoft.com/en-us/aspnet/core/blazor/call-web-api?view=aspnetcore-3.1
+
+
+			try
+			{
+				var batch = await Http.GetJsonAsync<List<DetailedActivity>>($"https://www.strava.com/api/v3/athlete/activities?per_page=200&page={page}");
+
+				Console.WriteLine($"{page} {batch.Count}");
+
+				if (batch.Count == 0)
+					break;
+
+				list.AddRange(batch);
+				Message = $"Loading... ({list.Count})";
+				this.StateHasChanged();
+
+				//	await Task.Delay(20000);
+			}
+			catch (Exception e)
+			{
+				Message = $"Failed: {e.Message}";
+				IsButtonDisabled = false;
+				return;
+			}
+
+			Message = string.Empty;
+		}
+
+		IsButtonDisabled = false;
+		Activities = list;
+		Console.WriteLine(Activities.Count());
+	}
+}

@@ -1,6 +1,8 @@
 ﻿@page "/stravatest"
 @using BlazorDemoTim.Shared
 @using Strava.NET.Model
+@using BlazorDemoTim.Client.Common
+
 @inject HttpClient Http
 
 <h3>Strava</h3>
@@ -10,28 +12,27 @@
 	<p style="height:24px"><em>@Message</em></p>
 
 	@*@if (!IsButtonDisabled)
-	{*@ 
-		<button disabled="@(IsButtonDisabled ? "disabled" : null)" class="bth btn-info" @onclick="@LoadActivities">Load activities</button>
+		{*@
+	<button disabled="@(IsButtonDisabled ? "disabled" : null)" class="bth btn-info" @onclick="@LoadActivities">Load activities</button>
 	//}
 }
 else
 {
-<div class="row">
-	<ul>
-		@foreach (var activity in Activities)
-		{
-			<li>@activity.Name</li>
-		}
-	</ul>
-</div>
+	<div class="row">
+		<ul>
+			@foreach (var activity in Activities)
+			{
+				<li>@activity.Name</li>
+			}
+		</ul>
+	</div>
 }
 
 
 
 @code {
 
-	// Get in more fields
-	// Loop to get the all
+	// https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
 	// Move token to file.  User secrets?
 	// Error handling -- 401 etc -- also catch their error message
 	// Separate walk and ride
@@ -41,6 +42,10 @@ else
 	// Failed to load resource: the server responded with a status of 401 ()
 	// Hot reload?
 	// Two way data binding
+	// what to store in the database? how to refresh the token?
+	// https://developers.strava.com/docs/webhooks/
+	// Get services.AddSingleton<IDataLayer, DataLayer>();  stuff from Learn/BlazorSample
+	// TabSet -- https://docs.microsoft.com/en-us/aspnet/core/blazor/components?view=aspnetcore-3.1
 
 	//public class DetailedActivity
 	//{
@@ -54,11 +59,14 @@ else
 	private string Message { get; set; } = string.Empty;
 	private bool IsButtonDisabled { get; set; } = false;
 
+	[CascadingParameter]
+	UserState? UserState { get; set; }
+
 
 	private async Task LoadActivities()
 	{
 		Console.WriteLine("CLICKED");
-		Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", "Bearer 1d412d9977dfcaa3888a886fd06342808e026671");
+		Http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", "Bearer ace72a478c2cd3285d1db5ff7906d9fc5e87e250");
 
 		var list = new List<DetailedActivity>();
 
@@ -99,6 +107,9 @@ else
 
 		IsButtonDisabled = false;
 		Activities = list;
+
+		UserState?.SetStats(list.Count(), Convert.ToInt32(list.Sum(a => a.Distance) / 1.609 / 1000));
+
 		Console.WriteLine(Activities.Count());
 	}
 }

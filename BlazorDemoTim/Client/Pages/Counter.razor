@@ -1,6 +1,8 @@
 ﻿@page "/counter"
 @page "/counter/{startingCount:int}"
 
+@using BlazorDemoTim.Client.Common
+
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
@@ -13,15 +15,22 @@
 	[Parameter]
 	public int StartingCount { get; set; } = 0;
 
+	[CascadingParameter]
+	UserState? UserState { get; set; } 
+
 
 	protected override void OnInitialized()
 	{
 		currentCount = StartingCount;
+
+		if (UserState != null)
+			currentCount = UserState.Counter;
 	}
 
 
 	private void IncrementCount()
 	{
 		currentCount++;
+		UserState?.SetCounter(currentCount);
 	}
 }

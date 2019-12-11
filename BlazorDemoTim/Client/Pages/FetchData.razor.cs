@@ -1,9 +1,10 @@
-﻿using BlazorDemoTim.Shared;
+﻿using BlazorDemoTim.Client.Common;
+using BlazorDemoTim.Shared;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using System.Linq;
 
 
 //@inherits FetchDataBase
@@ -23,12 +24,17 @@ namespace BlazorDemoTim.Client.Pages
 		[Inject]
 		public HttpClient? Http { get; set; }
 
+
+		[CascadingParameter]
+		UserState? UserState { get; set; }
+
 		protected override async Task OnInitializedAsync()
 		{
 			Console.WriteLine("Fetching data ...");
 
 			forecasts = await Http.GetJsonAsync<WeatherForecast[]>("WeatherForecast");
 
+			UserState?.SetTemperature(forecasts.FirstOrDefault()?.TemperatureF);
 			// Projects now use System.Text.Json by default for JSON
 			Console.WriteLine(System.Text.Json.JsonSerializer.Serialize(forecasts));
 		}

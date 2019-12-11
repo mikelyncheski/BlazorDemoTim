@@ -1,15 +1,34 @@
 ﻿@inherits LayoutComponentBase
+@using BlazorDemoTim.Client.Common
+
 
 <div class="sidebar">
-    <NavMenu />
+	<NavMenu />
 </div>
 
 <div class="main">
-    <div class="top-row px-4">
-        <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-    </div>
+	<div class="top-row px-4">
+		<a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+	</div>
 
-    <div class="content px-4">
-        @Body
-    </div>
+	<p>
+		Counter: @UserState?.Counter
+	</p>
+
+	<div class="content px-4">
+		<CascadingValue Value=@UserState>
+			@Body
+		</CascadingValue>
+	</div>
 </div>
+
+
+@code {
+	private UserState? UserState { get; set; }
+
+
+	protected override void OnInitialized()
+	{
+		UserState = new UserState(this.StateHasChanged);
+	}
+}

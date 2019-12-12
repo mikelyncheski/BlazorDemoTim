@@ -34,6 +34,8 @@ else
 
 	// https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-3.1&tabs=windows
 	// Move token to file.  User secrets?
+	// Use DI for LookupHelper and ServiceHelper.  SINGLETON https://youtu.be/gjvyM240B-Q  -- Make available in shared, base class?
+	//                 [Inject] LookupService LookupHelper { et; set;
 	// Error handling -- 401 etc -- also catch their error message
 	// Separate walk and ride
 	// Refresh the token

@@ -16,6 +16,10 @@
 <input @ref="inputToFocus" />
 <button class="btn btn-danger" @onclick="Focus">Focus!</button>
 
+<h3>Random # from C# into JS</h3>
+<div>The random number is: <span id="randomNumberSpan"></span></div>
+<button class="btn btn-info" onclick="giveMeRandomInt(100)" >Randomize</button>
+
 
 @code {
 	private string questionText = string.Empty;
@@ -27,7 +31,7 @@
 		//if (firstRender)
 		//	ShowAlert();
 
-		// If you try to do JS stuff in the OnInitialize on the web server version of blazor, it will be 
+		// If you try to do JS stuff in the OnInitialize on the web server version of blazor, it will be
 		// too early.  Use this event instead.
 	}
 
@@ -51,4 +55,11 @@
 	}
 
 
+	// WWWROOT IS NOT IN GITHUB !!!
+
+	[JSInvokable]  // 08:13 in video   
+	public static Task<int> GenerateRandomInt(int maxValue)
+	{
+		return Task.FromResult(new Random().Next(maxValue));
+	}
 }

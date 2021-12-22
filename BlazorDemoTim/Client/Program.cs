@@ -1,6 +1,6 @@
 ﻿//c1+c2
 using Microsoft.AspNetCore.Blazor.Hosting;
-
+// c5
 namespace BlazorDemoTim.Client
 {
 	public class Program

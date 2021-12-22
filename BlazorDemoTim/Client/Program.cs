@@ -14,3 +14,6 @@ namespace BlazorDemoTim.Client
 				.UseBlazorStartup<Startup>();
 	}
 }
+
+// test
+// t2

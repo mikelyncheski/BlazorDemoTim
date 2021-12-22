@@ -1,4 +1,4 @@
-﻿//c1
+﻿//c1+c2
 using Microsoft.AspNetCore.Blazor.Hosting;
 
 namespace BlazorDemoTim.Client
